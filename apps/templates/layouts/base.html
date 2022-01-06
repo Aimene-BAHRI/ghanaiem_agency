@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  
+  <title>
+    Dashboard - {% block title %} GHANAIEM_AGENCY {% endblock %} | MOSTA_GHANAIEM
+  </title>
+
+  <!-- Favicon - loaded as static -->
+  <link rel="icon" href="{% static 'assets/logo.png' %}" type="image/png">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Icons -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
+  <!-- Page plugins -->
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.0/mdb.min.css" rel="stylesheet"/>
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/argon.css?v=1.2.0' %}" type="text/css">
+
+  <!-- Moment.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+
+  <!-- Tempus Dominus Bootstrap 4 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
+  
+  <!-- Specific CSS goes HERE -->
+  {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+<body class="">
+
+  <style>
+    .custom-file-input {
+      display: none;
+    }
+    
+  
+  </style>
+  {% include "includes/sidenav.html" %}
+
+  <div class="main-content" id="panel">
+
+    {% include "includes/navigation.html" %}
+
+    {% block content %}
+    
+    {% endblock content %}
+
+  </div>
+  {% include "includes/scripts.html" %}
+
+  <!-- Specific JS goes HERE --> 
+  <script type="text/javascript" src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.backstretch.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  {% block javascripts %}{% endblock javascripts %}
+  <!-- MDB -->
+		{% comment %} <script
+		type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.0/mdb.min.js"
+		></script> {% endcomment %}
+
+  <script>
+    $(function () {
+        $("#datepickerdebut").datetimepicker({
+            format: 'YYYY-MM-DD' 
+        });
+    });
+    $(function () {
+        $("#datepickerfin").datetimepicker({
+            format: 'YYYY-MM-DD' 
+        });
+    });
+  </script>
+  <script src="{% static 'assets/js/argon.js?v=1.2.0' %}"></script>
+  <script>
+    // Toggle options
+	function toggleOptions(elem) {
+		var options = elem.data('add');
+		var $target = $(elem.data('target'));
+		var $chart = $target.data('chart');
+
+		if (elem.is(':checked')) {
+
+			// Add options
+			pushOptions($chart, options);
+
+			// Update chart
+			$chart.update();
+		} else {
+
+			// Remove options
+			popOptions($chart, options);
+
+			// Update chart
+			$chart.update();
+		}
+	}
+  // Update options
+	function updateOptions(elem) {
+		var options = elem.data('update');
+		var $target = $(elem.data('target'));
+		var $chart = $target.data('chart');
+
+		// Parse options
+		parseOptions($chart, options);
+
+		// Toggle ticks
+		toggleTicks(elem, $chart);
+
+		// Update chart
+		$chart.update();
+	}
+  // Toggle ticks
+	function toggleTicks(elem, $chart) {
+
+		if (elem.data('prefix') !== undefined || elem.data('prefix') !== undefined) {
+			var prefix = elem.data('prefix') ? elem.data('prefix') : '';
+			var suffix = elem.data('suffix') ? elem.data('suffix') : '';
+
+			// Update ticks
+			$chart.options.scales.yAxes[0].ticks.callback = function(value) {
+				if (!(value % 10)) {
+					return prefix + value + suffix;
+				}
+			}
+
+			// Update tooltips
+			$chart.options.tooltips.callbacks.label = function(item, data) {
+				var label = data.datasets[item.datasetIndex].label || '';
+				var yLabel = item.yLabel;
+				var content = '';
+
+				if (data.datasets.length > 1) {
+					content += '<span class="popover-body-label mr-auto">' + label + '</span>';
+				}
+
+				content += '<span class="popover-body-value">' + prefix + yLabel + suffix + '</span>';
+				return content;
+			}
+
+		}
+	}
+  
+    //
+    // Bars chart
+    //
+    var data = {{ data_aze }};
+    console.log(data);
+    var BarsChart = (function() {
+
+      //
+      // Variables
+      //
+
+      var $chart = $('#chart-bars');
+
+
+      //
+      // Methods
+      //
+
+      // Init chart
+      function initChart($chart) {
+
+        // Create chart
+        var ordersChart = new Chart($chart, {
+          type: 'bar',
+          data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun','Jui', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+              label: 'Reservation',
+              data: data, 
+            }]
+          }
+        });
+
+        // Save to jQuery object
+        $chart.data('chart', ordersChart);
+      }
+
+
+      // Init chart
+      if ($chart.length) {
+        initChart($chart);
+      }
+
+    })();
+    'use strict';
+  </script>
+</body>
+
+</html>

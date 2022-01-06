@@ -1,0 +1,138 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Reservations {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  <style>
+    .page-item .page-link, .page-item span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      margin: 0 3px;
+      border-radius: 10% !important;
+      width: 36px;
+      height: 36px;
+      font-size: 0.875rem;
+    }
+
+    .page-item.disabled .page-link {
+      color: #bdc17d;
+      pointer-events: none;
+      cursor: auto;
+      background-color: #fff;
+      border-color: #bdc17d;
+    }
+  </style>
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        
+      </div>
+    </div>
+
+    <div class="container-fluid mt--7">
+
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <!-- Card header -->
+          <div class="card-header border-0">
+            <h3 class="mb-0">Mes Reservations</h3>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table id="tabledb" class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="sort" data-sort="name">#ID</th>
+                  <th scope="col" class="sort" data-sort="budget">Nom </th>
+                  <th scope="col" class="sort" data-sort="status">Prenom</th>
+                  <th scope="col" class="sort" data-sort="status">telephone</th>
+                  <th scope="col" class="sort" data-sort="status">email</th>
+                  <th scope="col" class="sort" data-sort="status">date de reservation</th>
+                  <th scope="col" class="sort" data-sort="status">Action</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                {% for reservation in reservations %}
+                  <tr>
+                  <th scope="row">
+                    <div class="media align-items-center">
+                    {% comment %} <a href="#" class="avatar rounded-circle mr-3">
+                      <img alt="Image placeholder" src="/static/assets/img/theme/bootstrap.jpg">
+                    </a> {% endcomment %}
+                    <div class="media-body">
+                      <span class="name mb-0 text-sm">{{reservation.id}}</span>
+                    </div>
+                    </div>
+                  </th>
+                  <td class="budget">
+                    {{reservation.nom}}
+                  </td>
+                  <td class="budget">
+                    {{reservation.prenom }}
+                  </td>
+                  <td class="budget">
+                    {{ reservation.telephone }}
+                  </td>
+                  <td class="budget">
+                    {{ reservation.email }}
+                  </td>
+                  <td class="budget">
+                    {{ reservation.reservation_date }}
+                  </td>
+                  <td class="">
+                    <a href="{% url 'home:delete_reservation' reservation.id %}" class="btn btn-sm btn-danger">X</a>
+                  </td>
+                  </tr>
+                {% endfor %}   
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+<script>
+  $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+    $(".alert-success").slideUp(500);
+  });
+</script>
+
+{% comment %} <script src="/static/assets/vendor/clipboard/dist/clipboard.min.js"></script> {% endcomment %}
+
+<script src="{% static 'assets/vendor/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+ 
+<script>
+    $(document).ready(function () {
+      console.log('HELLO')
+      $('#tabledb').DataTable( {
+        "paging": true,
+        "searching": true,
+        "autoWidth": false,
+        "ordering": true,
+        "columnDefs": [
+        {"width": "auto", "targets": 0},
+        {"width": "auto", "targets": 1},
+        {"width": "auto", "targets": 2},
+        {"width": "auto", "targets": 3},
+        {"width": "auto", "targets": 4},
+        {"width": "auto", "targets": 5},
+        ],
+      });
+    });
+</script>
+ 
+<!-- Added this script to see if the page would recognize the items within block -->
+
+{% endblock javascripts %}

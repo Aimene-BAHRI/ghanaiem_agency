@@ -1,0 +1,163 @@
+{% load static %}
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+  <div class="scrollbar-inner">
+    <!-- Brand -->
+    <div class="sidenav-header  align-items-center">
+      <a class="pic-holder" href="{% url 'home:index' %}">
+        <style> 
+          .sidenav-header {
+            height : auto !important;
+            display: flex;
+            justify-content: center;
+          }
+          .pic-holder {
+            text-align: center;
+            position: relative;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+
+          .pic-holder .pic {
+            height: 100%;
+            width: 100%;
+            -o-object-fit: cover;
+            object-fit: cover;
+            -o-object-position: center;
+            object-position: center;
+          }
+        </style>
+        {% if main.logo %}
+          <img src="{{ main.logo.url }}" class="pic" alt="{{main}}"  width="150px">
+        {% else %}
+          <img id="profilePic" class="pic" src="{% static 'assets/img/default.jpg' %}" width="150px">
+        {% endif %}
+        
+      </a>
+    </div>
+    <div class="navbar-inner">
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+        <!-- Nav items -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link {% if 'home' in segment %} active {% endif %}" href="/">
+              <i class="ni ni-shop text-primary"></i>
+              <span class="nav-link-text">Accueil</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'info' in segment %} active {% endif %}" href="{% url 'home:info' %}">
+              <i class="ni ni-planet text-orange"></i>
+              <span class="nav-link-text">Mes Informations</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'rubriques' in segment %} active {% endif %}" href="{% url 'home:rubriques' %}">
+              <i class="ni ni-align-center text-red"></i>
+              <span class="nav-link-text">Rubriques</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'annonces' in segment %} active {% endif %}" href="{% url 'home:annonces' %}">
+              <i class="ni ni-bell-55 text-yellow"></i>
+              <span class="nav-link-text">Annonces</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'endroits' in segment %} active {% endif %}" href="{% url 'home:endroits' %}">
+              <i class="ni ni-square-pin text-red"></i>
+              <span class="nav-link-text">Endroits</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link {% if 'reservations' in segment %} active {% endif %}" href="{% url 'home:reservations' %}">
+              <i class="ni ni-calendar-grid-58 text-red"></i>
+              <span class="nav-link-text">Reservations</span>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">
+              <i class="ni ni-circle-08 text-pink"></i>
+              <span class="nav-link-text">Ajouter Gerant(e)</span>
+            </a>
+          </li>                     
+        </ul>
+        <!-- Divider -->
+        <hr class="my-3">
+        
+        <!-- Navigation -->
+        <ul class="navbar-nav mb-md-3">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <i class="ni ni-button-power text-red"></i>
+              <span class="nav-link-text">Deconnexion</span>
+            </a>
+          </li> 
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+{% comment %} 
+<li class="nav-item">
+            <a class="nav-link {% if 'map' in segment %} active {% endif %}" href="/map.html">
+              <i class="ni ni-pin-3 text-primary"></i>
+              <span class="nav-link-text">Google</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="/profile.html">
+              <i class="ni ni-single-02 text-yellow"></i>
+              <span class="nav-link-text">Profile</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/tables.html">
+              <i class="ni ni-bullet-list-67 text-default"></i>
+              <span class="nav-link-text">Tables</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login.html">
+              <i class="ni ni-key-25 text-info"></i>
+              <span class="nav-link-text">Login (template)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" 
+               target="_blank" 
+               href="https://appseed.us/admin-dashboards/django-dashboard-argon">
+              <i class="ni ni-archive-2"></i>
+              <span class="nav-link-text">Product Page</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" 
+               target="_blank" 
+               href="https://appseed.us/admin-dashboards/django-dashboard-argon-pro">
+              <i class="ni ni-spaceship text-red"></i>
+              <span class="nav-link-text text-red">PRO Version</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active active-pro" 
+               target="_blank" 
+               href="http://appseed.us">
+              <i class="ni ni-send text-dark"></i>
+              <span class="nav-link-text">AppSeed</span>
+            </a>
+          </li>
+{% endcomment %}

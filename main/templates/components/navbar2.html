@@ -1,0 +1,115 @@
+{% load static %}
+<!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}">
+            {% if main.logo %}
+              <img src="{{ main.logo.url }}" class="pic" alt="{{main}}" width="60px">
+            {% else %}
+              <img id="profilePic" class="pic" src="{% static 'assets/img/default.jpg' %}" width="60px">
+            {% endif %}
+          </a>
+          
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% if main.facebook %} {{ main.facebook}} {% else %}#{% endif %}">
+                      <i class="fab fa-facebook"></i>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% if main.instagram %} {{ main.instagram}} {% else %}#{% endif %}">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% if main.twitter %} {{ main.twitter}} {% else %}#{% endif %}">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  {% if request.user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:index' %}">
+                      Administration
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">
+                      Deconnexion
+                    </a>
+                  </li>
+                  {% else %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'login' %}">
+                        Connexion
+                      </a>
+                    </li>
+                  {% endif %}
+                  
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+  
+
+
+  <!--Second navbar-->
+  <nav class="container navbar navbar-expand-lg">
+    
+    <div class="container ">
+      <button class="navbar-toggler navbar-toggler-right" type="button" 
+            data-bs-toggle="collapse" data-bs-target="#navbarResponsive2" 
+            aria-controls="navbarResponsive2" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fas fa-bars"></i>
+          </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive2" style="justify-content: center;">
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  À propos de moi
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% comment %} <li>
+                    <a class="dropdown-item" href="{% url 'terms' %}">Condition de travail</a>
+                  </li> {% endcomment %}
+                  <li>
+                    <a class="dropdown-item" href="{% url 'privacy' %}">politique de confidentialité</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown2"
+                  role="button"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Rubriques
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                  {% comment %} <li>
+                    <a class="dropdown-item" href="{% url 'categories' %}">Tous</a>
+                  </li> {% endcomment %}
+                  {% for categorie in categories %}
+                    <li>
+                      <a class="dropdown-item" href="{% url 'categories' categorie.slug %}">{{categorie}}</a>
+                    </li>
+                  {% endfor %}
+                  
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#contact_footer">Contacter Nous</a></li>
+          </ul>
+      </div>
+      <br>
+  </div>
+</nav>

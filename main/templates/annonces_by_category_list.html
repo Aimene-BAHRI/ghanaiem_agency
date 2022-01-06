@@ -1,0 +1,77 @@
+{% extends 'standard_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Annonces Dediées {% endblock title %}
+
+{% block content %}
+<style>
+	#nos_annonces_per_category {
+		margin-top : 20px
+	}
+	#nos_annonces_per_category img {
+		float: left;
+		width:  auto;
+		height: 200px;
+		object-fit: cover;
+	}
+	#nos_annonces_per_category .card {
+		margin: 10px 0px !important;
+	}
+
+	footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+	}
+</style>
+<div class="container-fluid">
+<!-- Annonces Section -->
+<section id="nos_annonces_per_category" class="text-center">
+	<!-- TODO! Add model annonce (new annonce with updated datetime and filter them by new dates )-->
+	<!-- TODO: Pagination -->
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 gx-lg-5 justify-content-center">
+			<div class="col-lg-12">
+				<h2 class=" mb-4">Annonces dédiées :</h2>
+				<div class="row mx-auto my-auto justify-content-center">
+					<div class="container">
+						<div class="row">
+							{% if annonces %}
+								{% for annonce in annonces %}
+									<div class="col-md-4">
+										<div class="card" >
+											<img src="{{ annonce.image_principale.url}}" class="card-img-top" alt="..." />
+											<div class="card-body">
+												<h5 class="card-title">{{annonce.annonce_name}}</h5>
+												<p class="card-text" style="
+													margin-bottom: 0;
+													font-size: small;
+													font-family: 'Poppins';
+													color: gray;">
+													{{ annonce.annonce_description }}
+												</p>
+												<p style="text-align:left"> 
+													date de départ : {{ annonce.date_debut }}
+													<br>
+													date de retour : {{ annonce.date_fin }}
+												</p>
+											</div>
+											<div class="card-body">
+												<a href="{% url 'home:annonce_detail' annonce.id %}" class="card-link"> Plus ...</a>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							{% else %}
+								
+							{% endif %}
+						</div>  
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</div>
+{% endblock %}

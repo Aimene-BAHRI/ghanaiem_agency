@@ -1,0 +1,713 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Detaillé {% endblock title %}
+
+{% block content %}
+<!-- Masthead-->
+<style>
+  {% if annonce.image_principale %}
+
+  .masthead {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%),
+    url("{{ annonce.image_principale.url}}");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+  }
+
+    {% else %}
+
+  .masthead {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%),
+      url("static/assets/img/femme-voyageuse.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+  }
+
+    {% endif %}
+
+  section {
+    margin-top: 5rem !important;
+    background: white;
+  }
+
+  .slogan-section {
+    padding: 5rem 0;
+    width: 64%;
+    margin: auto;
+  }
+
+  .slogan-text {
+    font-size: 60px;
+    font-family: 'Varela Round';
+  }
+
+  /* shapes */
+  .triangle {
+    width: 0;
+    height: 0;
+  }
+
+  .triangle .triangle-top-left {
+    border-top: 50px solid #f79e1a;
+    border-right: 50px solid transparent;
+  }
+
+  .triangle .triangle-top-right {
+    border-top: 50px solid #f79e1a;
+    border-left: 50px solid transparent;
+  }
+
+  .triangle .triangle-bottom-left {
+    border-bottom: 35px solid #f79e1a;
+    border-right: 35px solid transparent;
+  }
+
+  .triangle .triangle-bottom-left2 {
+    border-bottom: 50px solid #f79e1a;
+    border-right: 50px solid transparent;
+  }
+
+  .triangle .triangle-bottom-right {
+    border-bottom: 50px solid #f79e1a;
+    border-left: 50px solid transparent;
+  }
+
+  .triangle .triangle-bottom-right2 {
+    border-bottom: 35px solid #f79e1a;
+    border-left: 35px solid transparent;
+  }
+
+  .place1 {
+    position: relative;
+    top: 200px;
+    left: -1%;
+  }
+
+  .place2 {
+    position: relative;
+    top: -30px;
+    left: 40%;
+  }
+
+  .place3 {
+    position: relative;
+    top: 400px;
+    left: 97%;
+  }
+
+  #tag1 {
+    font-family: 'Poppins';
+    display: inline;
+    color: #FFA902;
+    font-size: 5rem;
+    font-weight: bold;
+  }
+
+  #tag2 {
+    font-family: 'Poppins';
+    display: inline;
+    color: #BDC17D;
+    font-size: 5rem;
+    font-weight: bold;
+  }
+
+  section h2 {
+    color: #BDC17D;
+  }
+
+  #nos_annonces .card {
+    margin: 10px 0px !important;
+  }
+
+  .contact-section .social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: 3rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100%;
+    line-height: 3rem;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  form {
+    padding: 20px;
+  }
+
+  form h3 {
+    color: white;
+    margin: auto;
+    text-align: center;
+    width: 71%;
+    font-weight: bold;
+  }
+
+  .submit {
+    background-color: #f79e1a;
+    display: flex;
+    margin: 10px auto;
+    color: white;
+    border-radius: 7px;
+    min-width: 100px;
+    font-size: large;
+    text-align: center;
+    padding: 6px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+
+  .masthead-section {
+    position: relative;
+    min-width: 720px;
+    z-index: 50;
+  }
+
+  .masthead-video {
+    z-index: 0;
+    width: 100%;
+  }
+
+  .masthead-overlay {
+    background-color: #000;
+    opacity: 0.4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .masthead-video-credit {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    opacity: 0.6;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    padding-right: 10px;
+    bottom: 10px;
+    text-decoration: none;
+    text-align: right;
+    line-height: 1.5;
+    -webkit-transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    transition: 0.2s ease all;
+  }
+
+  .masthead-video-credit span {
+    display: block;
+  }
+
+  .masthead-video-credit:hover {
+    opacity: 1;
+  }
+
+  .masthead-arrow {
+    position: relative;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 30px;
+    height: 30px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    opacity: 0.4;
+  }
+
+  .mastheads h1 {
+    position: relative;
+    width: 100%;
+    font-weight: 700;
+    font-size: 110px;
+    text-align: center;
+    height: 120px;
+    line-height: 1;
+    bottom: 28rem;
+    margin: auto;
+    color: #fff;
+  }
+
+  .mastheads h1 span {
+    display: block;
+    font-size: 20px;
+    letter-spacing: 0.43em;
+    font-weight: 400;
+    text-transform: uppercase;
+    padding-left: 0px;
+    opacity: 0.5;
+    padding: 20px 0px;
+    width: auto;
+  }
+
+  .card-img-top {
+    height: 350px;
+  }
+
+  .step-links {
+    font-size: larger;
+    font-weight: bold;
+  }
+
+  .step-links,
+  .card-title a {
+    color: black;
+  }
+
+  .text-orange {
+    color: #efb66c;
+  }
+</style>
+
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="text-center">
+        <h1 class="mx-auto my-0 text-uppercase">
+          <h2 id="tag1">{{ annonce.annonce_name }}</h2>
+          <br>
+          <h3 class="text-white-50 mx-auto mt-2 mb-5">
+            {{ annonce.annonce_description}}
+          </h3>
+          <br>
+          <a class="btn btn-primary" href="#reservation">Reserver Un ticket</a>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Rubrique Section -->
+<section class="text-center">
+  <!-- TODO! Add model annonce (new annonce with updated datetime and filter them by new dates )-->
+  <!-- TODO: Pagination -->
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-lg-12">
+        <h2 class=" mb-4">Nos Rubriques</h2>
+        <div class="row mx-auto my-auto justify-content-center">
+          <div class="container">
+            {% include 'components/caroussel.html' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Posts Section -->
+<section class="slogan-section" id="posts">
+  <div class="container bg-light" style="height: auto; font-family: 'Poppins';font-weight: bold; padding: 0px;">
+    <div class="triangle place1">
+      <div class="triangle-bottom-left"></div>
+    </div>
+    <div class="triangle place2">
+      <div class="triangle-bottom-right2"></div>
+    </div>
+    <div class="triangle place3">
+      <div class="triangle-bottom-right"></div>
+    </div>
+    <div dir="rtl" id="post" style="padding : 30px">
+      {{ annonce.post }}
+    </div>
+  </div>
+</section>
+
+<!-- Annone Photos Caroussel Section -->
+<section class="text-center">
+  <!-- TODO! Add model annonce (new annonce with updated datetime and filter them by new dates )-->
+  <!-- TODO: Pagination -->
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-lg-12">
+        <h2 class=" mb-4"></h2>
+        <div class="row mx-auto my-auto justify-content-center">
+          <div class="container">
+            <style>
+              .carousel-inner>.item>a>img,
+              .carousel-inner>.item>img,
+              .img-responsive,
+              .thumbnail a>img,
+              .thumbnail>img {
+                display:block;
+                max-width:100%;
+                height:auto
+              }
+              .carousel {
+                position: relative
+              }
+
+              .carousel-inner {
+                position: relative;
+                width: 100%;
+                overflow: hidden
+              }
+
+              .carousel-inner>.item {
+                position: relative;
+                display: none;
+                -webkit-transition: .6s ease-in-out left;
+                -o-transition: .6s ease-in-out left;
+                transition: .6s ease-in-out left
+              }
+
+              .carousel-inner>.item>a>img,
+              .carousel-inner>.item>img {
+                line-height: 1
+              }
+
+              @media all and (transform-3d),
+              (-webkit-transform-3d) {
+                .carousel-inner>.item {
+                  -webkit-transition: -webkit-transform .6s ease-in-out;
+                  -o-transition: -o-transform .6s ease-in-out;
+                  transition: -webkit-transform .6s ease-in-out;
+                  transition: transform .6s ease-in-out;
+                  transition: transform .6s ease-in-out, -webkit-transform .6s ease-in-out, -o-transform .6s ease-in-out;
+                  -webkit-backface-visibility: hidden;
+                  backface-visibility: hidden;
+                  -webkit-perspective: 1000px;
+                  perspective: 1000px
+                }
+
+                .carousel-inner>.item.active.right,
+                .carousel-inner>.item.next {
+                  -webkit-transform: translate3d(100%, 0, 0);
+                  transform: translate3d(100%, 0, 0);
+                  left: 0
+                }
+
+                .carousel-inner>.item.active.left,
+                .carousel-inner>.item.prev {
+                  -webkit-transform: translate3d(-100%, 0, 0);
+                  transform: translate3d(-100%, 0, 0);
+                  left: 0
+                }
+
+                .carousel-inner>.item.active,
+                .carousel-inner>.item.next.left,
+                .carousel-inner>.item.prev.right {
+                  -webkit-transform: translate3d(0, 0, 0);
+                  transform: translate3d(0, 0, 0);
+                  left: 0
+                }
+              }
+
+              .carousel-inner>.active,
+              .carousel-inner>.next,
+              .carousel-inner>.prev {
+                display: block
+              }
+
+              .carousel-inner>.active {
+                left: 0
+              }
+
+              .carousel-inner>.next,
+              .carousel-inner>.prev {
+                position: absolute;
+                top: 0;
+                width: 100%
+              }
+
+              .carousel-inner>.next {
+                left: 100%
+              }
+
+              .carousel-inner>.prev {
+                left: -100%
+              }
+
+              .carousel-inner>.next.left,
+              .carousel-inner>.prev.right {
+                left: 0
+              }
+
+              .carousel-inner>.active.left {
+                left: -100%
+              }
+
+              .carousel-inner>.active.right {
+                left: 100%
+              }
+
+              .carousel-control {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 15%;
+                font-size: 20px;
+                color: #fff;
+                text-align: center;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+                background-color: rgba(0, 0, 0, 0);
+                filter: alpha(opacity=50);
+                opacity: .5
+              }
+
+              .carousel-control.left {
+                background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .0001) 100%);
+                background-image: -o-linear-gradient(left, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .0001) 100%);
+                background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, .0001)));
+                background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .0001) 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+                background-repeat: repeat-x
+              }
+
+              .carousel-control.right {
+                right: 0;
+                left: auto;
+                background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0, rgba(0, 0, 0, .5) 100%);
+                background-image: -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0, rgba(0, 0, 0, .5) 100%);
+                background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .0001)), to(rgba(0, 0, 0, .5)));
+                background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0, rgba(0, 0, 0, .5) 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+                background-repeat: repeat-x
+              }
+
+              .carousel-control:focus,
+              .carousel-control:hover {
+                color: #fff;
+                text-decoration: none;
+                outline: 0;
+                filter: alpha(opacity=90);
+                opacity: .9
+              }
+
+              .carousel-control .glyphicon-chevron-left,
+              .carousel-control .glyphicon-chevron-right,
+              .carousel-control .icon-next,
+              .carousel-control .icon-prev {
+                position: absolute;
+                top: 50%;
+                z-index: 5;
+                display: inline-block;
+                margin-top: -10px
+              }
+
+              .carousel-control .glyphicon-chevron-left,
+              .carousel-control .icon-prev {
+                left: 50%;
+                margin-left: -10px
+              }
+
+              .carousel-control .glyphicon-chevron-right,
+              .carousel-control .icon-next {
+                right: 50%;
+                margin-right: -10px
+              }
+
+              .carousel-control .icon-next,
+              .carousel-control .icon-prev {
+                width: 20px;
+                height: 20px;
+                font-family: serif;
+                line-height: 1
+              }
+
+              .carousel-control .icon-prev:before {
+                content: "\2039"
+              }
+
+              .carousel-control .icon-next:before {
+                content: "\203a"
+              }
+
+              .carousel-indicators {
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                z-index: 15;
+                width: 60%;
+                padding-left: 0;
+                margin-left: -30%;
+                text-align: center;
+                list-style: none
+              }
+
+              .carousel-indicators li {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                margin: 1px;
+                text-indent: -999px;
+                cursor: pointer;
+                background-color: #000\9;
+                background-color: rgba(0, 0, 0, 0);
+                border: 1px solid #fff;
+                border-radius: 10px
+              }
+
+              .carousel-indicators .active {
+                width: 12px;
+                height: 12px;
+                margin: 0;
+                background-color: #fff
+              }
+
+              .carousel-caption {
+                position: absolute;
+                right: 15%;
+                bottom: 20px;
+                left: 15%;
+                z-index: 10;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                color: #fff;
+                text-align: center;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, .6)
+              }
+
+              .carousel-caption .btn {
+                text-shadow: none
+              }
+
+              @media screen and (min-width:768px) {
+
+                .carousel-control .glyphicon-chevron-left,
+                .carousel-control .glyphicon-chevron-right,
+                .carousel-control .icon-next,
+                .carousel-control .icon-prev {
+                  width: 30px;
+                  height: 30px;
+                  margin-top: -10px;
+                  font-size: 30px
+                }
+
+                .carousel-control .glyphicon-chevron-left,
+                .carousel-control .icon-prev {
+                  margin-left: -10px
+                }
+
+                .carousel-control .glyphicon-chevron-right,
+                .carousel-control .icon-next {
+                  margin-right: -10px
+                }
+
+                .carousel-caption {
+                  right: 20%;
+                  left: 20%;
+                  padding-bottom: 30px
+                }
+
+                .carousel-indicators {
+                  bottom: 20px
+                }
+              }
+              .carousel-control-next-icon:after, .carousel-control-prev-icon:after {
+                content : " " !important;
+              }
+
+              .carousel-control-next-icon, .carousel-control-prev-icon {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                background: transparent no-repeat center center;
+                background-size: 100% 100%;
+              }
+              .carousel-control-next-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e") !important;
+              }
+
+              .carousel-control-prev-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e") !important
+              }
+            </style>
+            
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                {% for photo in annonce.photos.all %}
+                  {% if photo.image %}
+                    <div class="item {% if forloop.first %}active{% endif %}">
+                      <img src="{{ photo.image.url }}" alt="Los Angeles" style="width:100%; height:500px;">
+                    </div>
+                  {% else %}
+                    <div class="item {% if forloop.first %}active{% endif %}">
+                      <img src="{% static 'assets/img/default.jpg' %}" alt="Los Angeles" style="width:100%;height:500px;">
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+              <!-- Left and right controls -->
+              <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true">
+
+                </span>
+                <span class="sr-only">Precedent</span>
+              </a>
+              <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Suivant</span>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Rendez vous Section -->
+<section class="reservation" id="reservation">
+  {% if submitted %}
+      <div class="alert alert-success" role="alert">
+      Changement avec reussite !
+      </div>
+      <p class="success">
+      
+      </p>
+  {% endif %}
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-lg-12">
+        <h2 class=" mb-4 text-center">Prenez votre rendez-vous maintenant !</h2>
+        <div class="row mx-auto my-auto justify-content-center">
+          <div class="container">
+            <form style="background-color: #BDC17D; color: grey;" action="" method="post">
+              {% csrf_token %}
+              <h3 style="color: white;">Veuillez remplire les champs ci-dessous pour
+                prendre votre rendez-vous</h3>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  {{ form.nom|as_crispy_field }}
+                </div>
+                <div class="col-6">
+                  {{ form.prenom|as_crispy_field }}
+                </div>
+              </div>
+              {{ form.telephone|as_crispy_field }}
+              {{ form.email|as_crispy_field }}
+              <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                {{ form.reservation_date }}
+                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+              </div>
+              <input class="submit" type="submit" value="Valider" style="background-color: #f79e1a;">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  
+</script>
+{% endblock content %}

@@ -1,0 +1,1 @@
+web: gunicorn ghanaiem_agency.wsgi

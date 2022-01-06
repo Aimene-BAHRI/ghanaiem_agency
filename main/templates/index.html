@@ -1,0 +1,646 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Accueil {% endblock title %}
+
+{% block content %}
+    <!-- Masthead-->
+    <style>
+        {% if main.Image_principal %}
+        .masthead {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), 
+            url("{{ main.Image_principal.url}}");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            background-size: cover;
+        }
+        {% else %}
+        .masthead {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), 
+            url("../assets/img/femme-voyageuse.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            background-size: cover;
+        }
+        {% endif %}
+        section {
+            margin-top: 5rem !important;
+            background: white; 
+        }
+
+        .slogan-section {
+            padding: 5rem 0;
+            width: 64%;
+            margin: auto;
+        }
+
+        .slogan-text {
+            font-size: 60px;
+            font-family: 'Varela Round';
+        }
+
+        /* shapes */
+        .triangle {
+            width: 0;
+            height: 0;
+        }
+        
+        .triangle .triangle-top-left {
+            border-top: 50px solid #f79e1a;
+            border-right: 50px solid transparent;
+        }
+
+        .triangle .triangle-top-right {
+            border-top: 50px solid #f79e1a;
+            border-left: 50px solid transparent;
+        }
+
+        .triangle .triangle-bottom-left {
+            border-bottom: 35px solid #f79e1a;
+            border-right: 35px solid transparent;
+        }
+
+        .triangle .triangle-bottom-left2 {
+            border-bottom: 50px solid #f79e1a;
+            border-right: 50px solid transparent;
+        }
+
+        .triangle .triangle-bottom-right {
+            border-bottom: 50px solid #f79e1a;
+            border-left: 50px solid transparent;
+        }
+
+        .triangle .triangle-bottom-right2 {
+            border-bottom: 35px solid #f79e1a;
+            border-left: 35px solid transparent;
+        }
+
+        .place1 {
+            position: relative;
+            top: 120;
+            left: -12px;
+        }
+
+        .place2 {
+            position: relative;
+            top: -30;
+            left: 40%;
+        }
+
+        .place3 {
+            position: relative;
+            top: 70;
+            left: 97%;
+        }
+
+        #tag1 {
+            font-family: 'Poppins';
+            display: inline;
+            color: #FFA902;
+            font-size: 5rem;
+            font-weight: bold;
+        }
+
+        #tag2 {
+            font-family: 'Poppins';
+            display: inline;
+            color: #BDC17D;
+            font-size: 5rem;
+            font-weight: bold;
+        }
+
+        section h2 {
+            color: #BDC17D;
+        }
+
+        #nos_annonces .card {
+            margin: 10px 0px !important;
+        }
+
+        .contact-section .social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 3rem;
+            width: 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100%;
+            line-height: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        form {
+            padding: 20px;
+        }
+
+        form h3 {
+            color: white;
+            margin: auto;
+            text-align: center;
+            width: 71%;
+            font-weight: bold;
+        }
+        .submit {
+            background-color: #f79e1a;
+            display: flex;
+            margin: 10px auto;
+            color: white;
+            border-radius: 7px;
+            min-width: 100px;
+            font-size: large;
+            text-align: center;
+            padding: 6px;
+            justify-content: center;
+            align-items: center;
+            border: none;
+        }
+
+        .masthead-section {
+            position: relative;
+            min-width: 720px;
+            z-index: 50;
+        }
+
+        .masthead-video {
+            z-index: 0;
+            width: 100%;
+        }
+
+        .masthead-overlay {
+            background-color: #000;
+            opacity: 0.4;
+            position: fixed;
+            top: 0; left: 0;
+            bottom: 0; right: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .masthead-video-credit {
+            position: relative;
+            bottom: 0;
+            right: 0;
+            color: #fff;
+            opacity: 0.6;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            padding-right: 10px;
+            bottom: 10px;
+            text-decoration: none;
+            text-align: right;
+            line-height: 1.5;
+            -webkit-transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            transition: 0.2s ease all;
+        }
+
+        .masthead-video-credit span {
+            display: block;
+        }
+        .masthead-video-credit:hover {
+            opacity: 1;
+        }
+        .masthead-arrow {
+            position: relative;
+            bottom: 25px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+            width: 30px;
+            height: 30px;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            opacity: 0.4;
+        }
+
+        .mastheads h1 {
+            position: relative;
+            width: 100%;
+            font-weight: 700;
+            font-size: 110px;
+            text-align: center;
+            height: 120px;
+            line-height: 1;
+            bottom: 28rem;
+            margin: auto;
+            color: #fff;
+        }
+
+        .mastheads h1 span {
+            display: block;
+            font-size: 20px;
+            letter-spacing: 0.43em;
+            font-weight: 400;
+            text-transform: uppercase;
+            padding-left: 0px;
+            opacity: 0.5;
+            padding: 20px 0px;
+            width: auto;
+        }
+        
+        .card-img-top{
+            height : 350px;
+        }
+
+        .step-links {
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        .step-links, .card-title a {
+            color: black;
+        }
+        .text-orange {
+            color: #efb66c;
+        }
+    </style>
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <h1 class="mx-auto my-0 text-uppercase">
+                        <h2 id="tag1">{{ main.name_tag1 }}</h2>
+                        <h2 id="tag2">{{ main.name_tag2 }}</h2>
+                    <br>
+                    <h3 class="text-white-50 mx-auto mt-2 mb-5">
+                        {{ main.description}}
+                    </h3>
+                    <br>
+                    <a class="btn btn-primary" href="#reservation">Prendre un rendez-vous</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Rubriques Section -->
+    <section class="about-section text-center" id="about">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-12">
+                    <h2 class=" mb-4">Nos Rubriques</h2>
+                    <div class="row mx-auto my-auto justify-content-center">
+                        {% include 'components/caroussel.html' %}                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <!-- Annonces Section -->
+    <section id="nos_annonces" >
+        <!-- TODO! Add model annonce (new annonce with updated datetime and filter them by new dates )-->
+        <!-- TODO: Pagination -->
+        <div class="container-fluid px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-12">
+                    <h2 class=" mb-4 text-center">Nos Annonces</h2>
+                    <div class="row mx-auto my-auto justify-content-center">
+                        <div class="container">
+                            <div class="row">
+                                {% if annonces %}
+                                    {% for annonce in annonces %}
+                                        <div class="col-md-4">
+                                            <div class="card" >
+                                                <img src="{{ annonce.image_principale.url}}" class="card-img-top" alt="..." />
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{annonce.annonce_name}}</h5>
+                                                    <p class="card-text" style="
+                                                        margin-bottom: 0;
+                                                        font-size: small;
+                                                        font-family: 'Poppins';
+                                                        color: gray;">
+                                                        {{ annonce.annonce_description }}
+                                                    </p>
+                                                    <p style="text-align:left"> 
+                                                        date de départ : {{ annonce.date_debut }}
+                                                        <br>
+                                                        date de retour : {{ annonce.date_fin }}
+                                                    </p>
+                                                </div>
+                                                <div class="card-body">
+                                                    <a href="{% url 'home:annonce_detail' annonce.id %}" class="card-link"> Plus ....</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                <div class="col-md-4">
+                                    <div class="card" >
+                                        <img
+                                        src="{% static 'assets/img/backgrounds/1.jpg' %}"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                        <a href="#" class="card-link"> plus ...</a>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card" >
+                                        <img
+                                        src="{% static 'assets/img/backgrounds/2.jpg' %}"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                        <a href="#" class="card-link"> plus ...</a>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card" >
+                                        <img
+                                        src="{% static 'assets/img/backgrounds/3.jpg' %}"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                        <a href="#" class="card-link"> plus ...</a>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card" >
+                                        <img
+                                        src="{% static 'assets/img/backgrounds/1.jpg' %}"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                        <a href="#" class="card-link"> plus ...</a>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card" >
+                                        <img
+                                        src="{% static 'assets/img/backgrounds/2.jpg' %}"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                        <a href="#" class="card-link"> plus ...</a>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card" >
+                                        <img
+                                        src="{% static 'assets/img/backgrounds/3.jpg' %}"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                        <a href="#" class="card-link"> plus ...</a>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card" >
+                                        <img
+                                        src="{% static 'assets/img/backgrounds/1.jpg' %}"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                        <a href="#" class="card-link"> plus ...</a>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card" >
+                                        <img
+                                        src="{% static 'assets/img/backgrounds/2.jpg' %}"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                        <a href="#" class="card-link"> plus ...</a>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card" >
+                                        <img
+                                        src="{% static 'assets/img/backgrounds/3.jpg' %}"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                        <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                        <a href="#" class="card-link"> plus ...</a>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>  
+                        </div>
+                    </div>
+                    <!--Pagination-->
+                    <div class="container p-4">
+                        <div class="pagination justify-content-center">
+                            <span class="step-links">
+                                {% if annonces.has_previous %}
+                                    <a href="?page={{ annonces.previous_page_number }}">{{ annonces.previous_page_number }}</a>
+                                {% endif %}
+
+                                    <span class="current text-orange">
+                                        {{ annonces.number }} 
+                                    </span>
+                                    
+
+                                {% if annonces.has_next %}
+                                    <a href="?page={{ annonces.next_page_number }}">{{ annonces.next_page_number }}</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <!--end of Pagination-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slogan Section -->
+    <section class="slogan-section" id="projects">
+        <div class="container bg-light text-center slogan-text" style="height: 300px; font-family: 'Poppins';font-weight: bold; padding: 40px 0px;">
+            <div class="triangle ">
+                <div class="triangle-bottom-left place1"></div>
+            </div>
+            <div class="triangle place2">
+                <div class="triangle-bottom-right2 place2"></div>
+            </div>
+            <div class="triangle place3">
+                <div class="triangle-bottom-right place3"></div>
+            </div>
+                {{ main.slogan }}
+        </div>
+    </section>
+
+    <!-- Androits Section -->
+    <section class="text-center">
+        <!-- TODO! Add model annonce (new annonce with updated datetime and filter them by new dates )-->
+        <!-- TODO: Pagination -->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-12">
+                    <h2 class=" mb-4">Tendances</h2>
+                    <div class="row mx-auto my-auto justify-content-center">
+                        <div class="container">
+                            {% include 'components/caroussel2.html' %} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="masthead-section text-center">
+        <div class="container-fluid mastheads">
+            <video class="masthead-video" autoplay loop muted poster="{% static 'assets/img/poster.jpg' %}">
+                {% if main.video_principal %}
+                    <source src="{{main.video_principal.url}}" type="video/mp4">
+                {% else %}
+                    <source src="http://127.0.0.1:8000/media/dreamscapes.mp4" type="video/mp4">
+                {% endif %}
+            </video>
+            <h1>MOSTA_GHANAIEM<span>{{main.slogan}}</span></h1>
+        </div>
+    </section>
+    <!-- Rendez vous Section -->
+    <section class="reservation" id="reservation">
+        {% if submitted %}
+            <div class="alert alert-success" role="alert">
+            Changement avec reussite !
+            </div>
+            <p class="success">
+            
+            </p>
+        {% endif %}
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-12">
+                    <h2 class=" mb-4 text-center">Prenez votre rendez-vous maintenant !</h2>
+                    <div class="row mx-auto my-auto justify-content-center">
+                        <div class="container">
+                            <form style="background-color: #BDC17D; color: grey;" action="" method="post">
+                                {% csrf_token %}
+                                <h3 style="color: white;">Veuillez remplire les champs ci-dessous pour
+                                    prendre votre rendez-vous</h3>
+                                    <br>
+                                <div class="row">
+                                    <div class="col-6">
+                                    {{ form.nom|as_crispy_field }}
+                                    </div>
+                                    <div class="col-6">
+                                    {{ form.prenom|as_crispy_field }}
+                                    </div>
+                                </div>
+                                {{ form.telephone|as_crispy_field }}
+                                {{ form.email|as_crispy_field }}
+                                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                    {{ form.reservation_date }}
+                                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                <input class="submit" type="submit" value="Valider" style="background-color: #f79e1a;">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+

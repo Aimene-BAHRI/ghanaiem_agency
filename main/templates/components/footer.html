@@ -1,0 +1,63 @@
+<style>
+footer section {
+	background-color: #BDC17D;
+	color: white;
+  margin-top: 0px !important;
+}
+</style>
+<!-- Footer -->
+<footer id="contact_footer" class="text-center text-lg-start text-muted" 
+style="
+background-color: #BDC17D;
+">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block">
+      <span>Connectez-vous avec nous sur les réseaux sociaux :</span>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="{% if main.facebook %} {{ main.facebook}} {% else %}#{% endif %}" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="{% if main.instagram %} {{ main.instagram}} {% else %}#{% endif %}" class="me-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="{% if main.twitter %} {{ main.twitter}} {% else %}#{% endif %}" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3" style="padding : 1rem 0px 3rem 0px !important">
+        
+        
+
+        <!-- Grid column -->
+        <div class="col-md-12 col-lg-12 col-xl-12 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Contacter nous
+          </h6>
+          <span><i class="fas fa-print me-3"></i> {{ main.agency_number}}</span>
+          <span><i class="fas fa-phone me-3"></i> {{ main.phone_number}}</span>
+          <span><i class="fas fa-envelope me-3"></i>{{ main.email }}</span>
+          <span><i class="fas fa-home me-3"></i> {{ main.adresse }}</span>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+</footer>
+<!-- Footer -->

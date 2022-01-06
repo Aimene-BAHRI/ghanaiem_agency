@@ -1,0 +1,174 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Endroits {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  <style>
+    .submit {
+      background-color: #f79e1a;
+      display: flex;
+      margin: 10px auto;
+      color: white;
+      border-radius: 7px;
+      min-width: 100px;
+      font-size: large;
+      text-align: center;
+      padding: 6px;
+      justify-content: center;
+      align-items: center;
+      border: none;
+    }
+  </style>
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        
+      </div>
+    </div>
+
+    <div class="container-fluid mt--7">
+
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <!-- Card header -->
+          <div class="card-header border-0">
+            <h3 class="mb-0">Meilleures Endroits a visiter</h3>
+            <!-- Button trigger modal -->
+            <a href="{% url 'home:create_endroit' %}" class="btn  btn-neutral">Créer</a>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="sort" data-sort="name">#ID</th>
+                  <th scope="col" class="sort" data-sort="budget">Nom d' Endroit</th>
+                  <th scope="col" class="sort" data-sort="status">Image</th>
+                  <th scope="col" class="sort" data-sort="status">Action</th>
+                </tr>
+              </thead>
+              <tbody class="list">
+              {% for endroit in endroits %}
+                <tr>
+                  <th scope="row">
+                    <div class="media align-items-center">
+                      {% comment %} <a href="#" class="avatar rounded-circle mr-3">
+                        <img alt="Image placeholder" src="/static/assets/img/theme/bootstrap.jpg">
+                      </a> {% endcomment %}
+                      <div class="media-body">
+                        <a href="{% url 'home:edit_endroit' endroit.id %}" class="btn btn-sm btn-neutral">{{endroit.id}}</a>
+                      </div>
+                    </div>
+                  </th>
+                  <td class="budget">
+                    {{endroit.nom_endroit}}
+                  </td>
+                  
+                  <td>
+                    <span class="badge mr-4">
+                      <img class="status" src="{{ endroit.image.url }}" width="80px"/>
+                    </span>
+                  </td>
+                  
+                  <td class="">
+                    <a href="{% url 'home:edit_endroit' endroit.id %}" class="btn btn-sm btn-neutral">Modifier</a>
+                    <a href="{% url 'home:delete_endroit' endroit.id %}" class="btn btn-sm btn-danger">Supprimer </a>
+                  </td>
+                </tr>
+              {% endfor %}  
+              </tbody>
+            </table>
+          </div>
+          <!-- Card footer -->
+          <div class="card-footer py-4">
+            <nav aria-label="...">
+              <ul class="pagination justify-content-end mb-0">
+              {% if endroits.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ endroits.previous_page_number }}" tabindex="-1">
+                    <i class="fas fa-angle-left"></i>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% for page in range %}
+                <li class="page-item active">
+                  <a class="page-link" href="?page={{ page }}">{{page}}</a>
+                </li>
+              {% endfor %}
+              {% if endroits.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ endroits.next_page_number }}">
+                    <i class="fas fa-angle-right"></i>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+                
+              {% endif %}
+
+                
+              </ul>
+            </nav>
+          </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Creation d'endroit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'home:endroits' %}" enctype="multipart/form-data">
+          {% if form.errors %}
+            {% for field in form %}
+              {% for error in field.errors %}
+                  <p> {{ errors }} </p>
+              {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+              <p> {{ error }} </p>
+              {% endfor %}
+          {% endif %}
+          {% csrf_token %}
+          
+          
+          <div class="card-body">
+            {{ form.nom_endroit|as_crispy_field }}
+            {{ form.image|as_crispy_field }}
+
+          </div>
+          <button type="submit" class="btn btn-primary text-center">Créer Endriot</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal-->
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+<script>
+  $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+    $(".alert-success").slideUp(500);
+  });
+</script>
+
+<script src="/static/assets/vendor/clipboard/dist/clipboard.min.js"></script>
+
+{% endblock javascripts %}
