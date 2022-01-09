@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 import sys
 import dj_database_url
-import django_heroku
 
 from django.core.management.utils import get_random_secret_key
 
@@ -31,11 +30,10 @@ CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 # ALLOWED_HOSTS = ['https://ghanaiem-agency.herokuapp.com/', 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "https://ghanaiem-agency.herokuapp.com//127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Application definition
 
@@ -148,7 +146,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
     os.path.join(BASE_DIR, 'apps/static/'),
     )
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -160,6 +157,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-django_heroku.settings(locals())
 
 
