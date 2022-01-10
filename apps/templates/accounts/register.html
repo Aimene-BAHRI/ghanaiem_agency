@@ -16,7 +16,7 @@
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-transparent pb-5">
               <div class="text-muted text-center mt-2 mb-4">
-                Sign UP
+                Creation du compte
               </div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
@@ -25,7 +25,7 @@
                 {% if msg %}
                   <small>{{ msg | safe }}</small>
                 {% else %}
-                  Add your credentials
+                  Ajoutez vos identifiants 
                 {% endif %}  
               
               </div>
@@ -76,7 +76,7 @@
                   </div>
                   <span class="text-error">{{ form.password2.errors }}</span>
 
-                  <div class="row my-4">
+                  {% comment %} <div class="row my-4">
                     <div class="col-12">
                       <div class="custom-control custom-control-alternative custom-checkbox">
                         <input class="custom-control-input" id="customCheckRegister" type="checkbox">
@@ -85,9 +85,9 @@
                         </label>
                       </div>
                     </div>
-                  </div>
+                  </div> {% endcomment %}
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary mt-4">Create account</button>
+                    <button type="submit" class="btn btn-primary mt-4">Creation du compte</button>
                   </div>
                 </form>
 
@@ -102,11 +102,11 @@
       <div class="row mt-3">
         <div class="col-3"></div>
         <div class="col-3">
-          <a href="{% url 'login' %}" class="text-light"><small>Login</small></a>
+          <a href="{% url 'login' %}" class="text-light"><small>Authentification,</small></a>
         </div>
-        <div class="col-3 text-right">
+        {% comment %} <div class="col-3 text-right">
           <a href="https://appseed.us/support" class="text-light"><small>Get Support</small></a>
-        </div>
+        </div> {% endcomment %}
       </div>
 
     </div>

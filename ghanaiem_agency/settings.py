@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'main',
     'compressor',
     'crispy_forms',
-    'apps.home'  # Enable the inner home (home)
+    'apps.home',  # Enable the inner home (home)
+    "storages",
 ]
 
 MIDDLEWARE = [
