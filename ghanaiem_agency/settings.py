@@ -179,3 +179,4 @@ else:
     
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'mediafiles'
+    MEDIAFILES_DIRS = (os.path.join(BASE_DIR, "media"),)
