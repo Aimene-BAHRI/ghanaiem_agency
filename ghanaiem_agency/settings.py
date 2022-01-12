@@ -178,5 +178,5 @@ if USE_SPACES:
 else:
     
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = BASE_DIR / 'mediafiles'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/') 
     MEDIAFILES_DIRS = (os.path.join(BASE_DIR, "media"),)
