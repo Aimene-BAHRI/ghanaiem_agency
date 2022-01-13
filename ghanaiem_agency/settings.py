@@ -32,7 +32,7 @@ SECRET_KEY = '6ne0(#s)ltw4^b6-*7idc4w-_l^mqwzxj7#&8nzyyx(##n'
 DEBUG = True
 
 # ALLOWED_HOSTS = ['https://ghanaiem-agency.herokuapp.com/', 'localhost', '127.0.0.1']
-ALLOWED_HOSTS  = ['http://164.92.210.128']
+ALLOWED_HOSTS  = ['164.92.210.128', '164.92.210.128/', '127.0.0.1']
 
 # Application definition
 
@@ -150,4 +150,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = (os.path.join(BASE_DIR, "media"),)
+MEDIA_ROOT = BASE_DIR / 'mediafiles'
