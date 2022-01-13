@@ -168,13 +168,15 @@ if USE_SPACES:
     AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
     AWS_DEFAULT_ACL = 'public-read'
-    AWS_S3_ENDPOINT_URL = 'https://nyc3.digitaloceanspaces.com'
+    AWS_S3_ENDPOINT_URL = 'https://fra1.digitaloceanspaces.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-
+    AWS_LOCATION = 'media'
     # public media settings
+    MEDIAFILES_DIRS = (os.path.join(BASE_DIR, "media"),)
     PUBLIC_MEDIA_LOCATION = 'media'
-    MEDIA_URL = f'https://{AWS_S3_ENDPOINT_URL}/{PUBLIC_MEDIA_LOCATION}/'
-    DEFAULT_FILE_STORAGE = 'ghanaiem_agency.storage_backends.PublicMediaStorage'
+    MEDIA_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
+    MEDIAFILES_STORAGE = 'storages.backends.s3boto3Storage'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3Storage'
 else:
     
     MEDIA_URL = '/media/'
