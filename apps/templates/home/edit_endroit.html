@@ -184,7 +184,7 @@
       <div class="row">
         <div class="col">
           <div class="card shadow">
-            <form method="POST" action="{% url 'home:endroit' endroit.id %}" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data">
               {% if form.errors %}
                 {% for field in form %}
                   {% for error in field.errors %}
