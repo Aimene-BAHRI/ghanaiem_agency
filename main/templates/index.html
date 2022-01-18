@@ -294,6 +294,7 @@
     </section>
     <br>
     <!-- Annonces Section -->
+    {% if annonces %}
     <section id="nos_annonces" >
         <!-- TODO! Add model annonce (new annonce with updated datetime and filter them by new dates )-->
         <!-- TODO: Pagination -->
@@ -304,7 +305,6 @@
                     <div class="row mx-auto my-auto justify-content-center">
                         <div class="container">
                             <div class="row">
-                                {% if annonces %}
                                     {% for annonce in annonces %}
                                         <div class="col-md-4">
                                             <div class="card" >
@@ -329,198 +329,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    {% endfor %}
-                                {% else %}
-                                <div class="col-md-4">
-                                    <div class="card" >
-                                        <img
-                                        src="{% static 'assets/img/backgrounds/1.jpg' %}"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                        <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the
-                                            card's content.
-                                        </p>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                        <a href="#" class="card-link"> plus ...</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" >
-                                        <img
-                                        src="{% static 'assets/img/backgrounds/2.jpg' %}"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                        <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the
-                                            card's content.
-                                        </p>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                        <a href="#" class="card-link"> plus ...</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" >
-                                        <img
-                                        src="{% static 'assets/img/backgrounds/3.jpg' %}"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                        <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the
-                                            card's content.
-                                        </p>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                        <a href="#" class="card-link"> plus ...</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" >
-                                        <img
-                                        src="{% static 'assets/img/backgrounds/1.jpg' %}"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                        <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the
-                                            card's content.
-                                        </p>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                        <a href="#" class="card-link"> plus ...</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" >
-                                        <img
-                                        src="{% static 'assets/img/backgrounds/2.jpg' %}"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                        <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the
-                                            card's content.
-                                        </p>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                        <a href="#" class="card-link"> plus ...</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" >
-                                        <img
-                                        src="{% static 'assets/img/backgrounds/3.jpg' %}"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                        <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the
-                                            card's content.
-                                        </p>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                        <a href="#" class="card-link"> plus ...</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" >
-                                        <img
-                                        src="{% static 'assets/img/backgrounds/1.jpg' %}"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                        <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the
-                                            card's content.
-                                        </p>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                        <a href="#" class="card-link"> plus ...</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" >
-                                        <img
-                                        src="{% static 'assets/img/backgrounds/2.jpg' %}"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                        <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the
-                                            card's content.
-                                        </p>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                        <a href="#" class="card-link"> plus ...</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" >
-                                        <img
-                                        src="{% static 'assets/img/backgrounds/3.jpg' %}"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                        <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the
-                                            card's content.
-                                        </p>
-                                        </div>
-                                        
-                                        <div class="card-body">
-                                        <a href="#" class="card-link"> plus ...</a>
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endif %}
+                                    {% endfor %}       
                             </div>  
                         </div>
                     </div>
@@ -548,7 +357,7 @@
             </div>
         </div>
     </section>
-
+    {% endif %}
     <!-- Slogan Section -->
     <section class="slogan-section" id="projects">
         <div class="container bg-light text-center slogan-text" style="height: 300px; font-family: 'Poppins';font-weight: bold; padding: 40px 0px;">
