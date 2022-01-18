@@ -1,6 +1,6 @@
 # Agency
 
-<img width="250" src="Screenshots/logo.png">
+<img width="250" src="screenshots/logo.png">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
@@ -10,16 +10,16 @@ Mostaghanaiem is a web plateforme for travel agency made with Django Framework, 
 
 ## Screenshots:
 ### A Bootstrap 5 UI:
-<img src="Screenshots/HomePage.png">
+<img src="screenshots/HomePage.png">
 
 ### Login UI:
-<img src="Screenshots/login.png">
+<img src="screenshots/login.png">
 
 ### Dashboard UI:
-<img src="Screenshots/dashboard.png">
+<img src="screenshots/dashboard.png">
 
 ### Dashboard Info UI:
-<img src="Screenshots/mainInfo.png">
+<img src="screenshots/mainInfo.png">
 
 
 
