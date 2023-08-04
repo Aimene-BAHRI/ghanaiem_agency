@@ -63,7 +63,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ghanaiem_agency.urls'
-LOGIN_REDIRECT_URL = "/app"  # Route defined in home/urls.py
+LOGIN_REDIRECT_URL = "login"  # Route defined in home/urls.py
 LOGOUT_REDIRECT_URL = "home"  # Route defined in home/urls.py
 TEMPLATE_DIR = os.path.join(CORE_DIR, "apps/templates")  # ROOT dir for templates
 TEMPLATES = [
@@ -87,13 +87,21 @@ WSGI_APPLICATION = 'ghanaiem_agency.wsgi.application'
 import dj_database_url
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-DATABASES = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgresql://postgres:postgres@localhost:5432/ghanaiem',
-        conn_max_age=600
-    )
-}
+if not DEBUG:
+    DATABASES = {
+        'default': dj_database_url.config(
+            # Feel free to alter this value to suit your needs.
+            default='postgresql://postgres:postgres@localhost:5432/ghanaiem',
+            conn_max_age=600
+        )
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
 
 
 # Password validation
@@ -143,7 +151,14 @@ if not DEBUG:
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'statics/')
 
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static/'),
+        os.path.join(BASE_DIR, 'apps/static/'),
+        )
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
