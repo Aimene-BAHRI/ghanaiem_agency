@@ -15,7 +15,6 @@ def index(request):
 	main = Main.objects.last()
 	categories = Rubrique.objects.all()
 	submitted = False
-	print(main)
 	endroits = Endroit.objects.all()
 	annonces = Annonce.objects.filter(date_debut__gte=today).order_by('date_debut')
 	paginator = Paginator(annonces, 9)
@@ -24,18 +23,15 @@ def index(request):
 	from ghanaiem_agency.settings import MEDIA_ROOT, MEDIA_URL
 	if request.method == "POST":
 		form = ReservationForm(request.POST)
-		print(request)
-		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect(reverse('home'))
-		else:
-			print(form.errors)
+		if not form.is_valid():
 			return HttpResponse(form.errors.values())
+		form.save()
+		return HttpResponseRedirect(reverse('home'))
 	else:
 		form = ReservationForm()
 		if 'submitted' in request.GET:
 			submitted = True
-	
+
 	ctx = {
 		'segment': 'home',
 		'main': main,
@@ -57,12 +53,10 @@ def annonce_detail(request, pk):
 
 	if request.method == "POST":
 		form = ReservationForm(request.POST)
-		print(request)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect(reverse('home:annonce_detail', kwargs={'pk' : pk}))
 		else:
-			print(form.errors)
 			return HttpResponse(form.errors.values())
 	else:
 		form = ReservationForm()
@@ -101,16 +95,17 @@ def terms(request):
 import datetime
 def annonces_by_category(request, rubrique_slug = None):
 	main = Main.objects.last()
-	annonces = Annonce.objects.filter(date_debut__gte=datetime.datetime.today()).order_by("date_debut")
+	annonces = Annonce.objects.filter(
+		date_debut__gte=datetime.datetime.now()
+	).order_by("date_debut")
 	categories = Rubrique.objects.all()
 	if rubrique_slug:
-		category_s = get_object_or_404(Rubrique,slug = rubrique_slug)    
+		category_s = get_object_or_404(Rubrique,slug = rubrique_slug)
 		annonces = annonces.filter(categorie = category_s)
-	
+
 	context = {
 		'annonces':annonces,
-        'categories':categories,
-        # 'category':category_s,
+	'categories':categories,
 		'main': main
 	}
 	template = 'annonces_by_category_list.html'
