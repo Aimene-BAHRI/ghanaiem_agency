@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+
 from pathlib import Path
 import os
 import sys
@@ -20,6 +21,12 @@ from django.core.management.utils import get_random_secret_key
 BASE_DIR = Path(__file__).resolve().parent.parent
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -29,12 +36,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default=get_random_secret_key())
 # SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = False
 
-ALLOWED_HOSTS = ['164.92.210.128', 'localhost', '127.0.0.1', 'mostaghanaiem.com', 'www.mostaghanaiem.com']
-# Application definition
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
+ALLOWED_HOSTS = ['*']
+if RENDER_EXTERNAL_HOSTNAME := os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 INSTALLED_APPS = [
@@ -87,21 +92,11 @@ WSGI_APPLICATION = 'ghanaiem_agency.wsgi.application'
 import dj_database_url
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-if not DEBUG:
-    DATABASES = {
-        'default': dj_database_url.config(
-            # Feel free to alter this value to suit your needs.
-            default='postgresql://postgres:postgres@localhost:5432/ghanaiem',
-            conn_max_age=600
-        )
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
-    }
+
+DATABASES = {
+    'default': dj_database_url.parse(env('DATABASE_URL'))
+}
+
 
 
 # Password validation
